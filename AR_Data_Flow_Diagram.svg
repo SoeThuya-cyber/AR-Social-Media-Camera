@@ -1,0 +1,160 @@
+<svg viewBox="0 0 980 700" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, sans-serif">
+  <title>AR Social Media Camera – Data Flow Diagram</title>
+  <desc>Level 1 Data Flow Diagram showing how data moves from camera input through face detection, Firebase lookup, to AR overlay output.</desc>
+
+  <rect width="980" height="700" fill="#F8F9FA" rx="12"/>
+  <text x="490" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1F4E79">AR Social Media Camera — Data Flow Diagram (Level 1)</text>
+
+  <!-- ===== EXTERNAL ENTITIES (rectangles) ===== -->
+  <!-- User (Actor) -->
+  <rect x="30" y="300" width="110" height="55" rx="6" fill="#1F4E79"/>
+  <text x="85" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="white">📱 User</text>
+  <text x="85" y="341" text-anchor="middle" font-size="10" fill="#D0E8FF">(Mobile Device)</text>
+
+  <!-- Firebase (external store) -->
+  <rect x="840" y="300" width="120" height="55" rx="6" fill="#E65100"/>
+  <text x="900" y="323" text-anchor="middle" font-size="12" font-weight="bold" fill="white">🔥 Firebase</text>
+  <text x="900" y="341" text-anchor="middle" font-size="10" fill="#FFE0B2">Firestore + Auth</text>
+
+  <!-- AR Display -->
+  <rect x="30" y="570" width="110" height="55" rx="6" fill="#2E75B6"/>
+  <text x="85" y="593" text-anchor="middle" font-size="12" font-weight="bold" fill="white">🥽 AR Display</text>
+  <text x="85" y="611" text-anchor="middle" font-size="10" fill="#D0E8FF">(Screen Overlay)</text>
+
+  <!-- ===== PROCESSES (rounded rects) ===== -->
+  <!-- P1: Capture & Stream -->
+  <rect x="220" y="160" width="150" height="65" rx="30" fill="white" stroke="#2E75B6" stroke-width="2"/>
+  <text x="295" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#1F4E79">P1</text>
+  <text x="295" y="203" text-anchor="middle" font-size="10" fill="#1F4E79">Capture &amp; Stream</text>
+  <text x="295" y="217" text-anchor="middle" font-size="10" fill="#1F4E79">Camera Frames</text>
+
+  <!-- P2: Face Detection -->
+  <rect x="420" y="160" width="150" height="65" rx="30" fill="white" stroke="#388E3C" stroke-width="2"/>
+  <text x="495" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#2E7D32">P2</text>
+  <text x="495" y="203" text-anchor="middle" font-size="10" fill="#2E7D32">Detect &amp; Encode</text>
+  <text x="495" y="217" text-anchor="middle" font-size="10" fill="#2E7D32">Face (ML Kit)</text>
+
+  <!-- P3: Face Matching -->
+  <rect x="620" y="160" width="150" height="65" rx="30" fill="white" stroke="#388E3C" stroke-width="2"/>
+  <text x="695" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#2E7D32">P3</text>
+  <text x="695" y="203" text-anchor="middle" font-size="10" fill="#2E7D32">Match Face to</text>
+  <text x="695" y="217" text-anchor="middle" font-size="10" fill="#2E7D32">Registered User</text>
+
+  <!-- P4: Auth & Profile Setup -->
+  <rect x="220" y="430" width="150" height="65" rx="30" fill="white" stroke="#7B1FA2" stroke-width="2"/>
+  <text x="295" y="457" text-anchor="middle" font-size="11" font-weight="bold" fill="#6A1B9A">P4</text>
+  <text x="295" y="473" text-anchor="middle" font-size="10" fill="#6A1B9A">Authenticate</text>
+  <text x="295" y="487" text-anchor="middle" font-size="10" fill="#6A1B9A">&amp; Manage Profile</text>
+
+  <!-- P5: Fetch Profile Data -->
+  <rect x="420" y="430" width="150" height="65" rx="30" fill="white" stroke="#E65100" stroke-width="2"/>
+  <text x="495" y="457" text-anchor="middle" font-size="11" font-weight="bold" fill="#BF360C">P5</text>
+  <text x="495" y="473" text-anchor="middle" font-size="10" fill="#BF360C">Fetch Profile</text>
+  <text x="495" y="487" text-anchor="middle" font-size="10" fill="#BF360C">&amp; Check Privacy</text>
+
+  <!-- P6: Render AR Overlay -->
+  <rect x="620" y="430" width="150" height="65" rx="30" fill="white" stroke="#2E75B6" stroke-width="2"/>
+  <text x="695" y="457" text-anchor="middle" font-size="11" font-weight="bold" fill="#1F4E79">P6</text>
+  <text x="695" y="473" text-anchor="middle" font-size="10" fill="#1F4E79">Render AR</text>
+  <text x="695" y="487" text-anchor="middle" font-size="10" fill="#1F4E79">Overlay (ARCore)</text>
+
+  <!-- ===== DATA STORES (open rectangles) ===== -->
+  <!-- D1: User Profiles Store -->
+  <line x1="380" y1="320" x2="620" y2="320" stroke="#E65100" stroke-width="2"/>
+  <line x1="380" y1="350" x2="620" y2="350" stroke="#E65100" stroke-width="2"/>
+  <rect x="380" y="320" width="240" height="30" fill="#FFF3E0"/>
+  <text x="390" y="340" font-size="10" font-weight="bold" fill="#E65100">D1</text>
+  <text x="500" y="340" text-anchor="middle" font-size="11" fill="#BF360C">User Profiles &amp; Face Encodings</text>
+
+  <!-- D2: Visibility Settings Store -->
+  <line x1="380" y1="390" x2="620" y2="390" stroke="#7B1FA2" stroke-width="2"/>
+  <line x1="380" y1="420" x2="620" y2="420" stroke="#7B1FA2" stroke-width="2"/>
+  <rect x="380" y="390" width="240" height="30" fill="#F3E5F5"/>
+  <text x="390" y="410" font-size="10" font-weight="bold" fill="#7B1FA2">D2</text>
+  <text x="500" y="410" text-anchor="middle" font-size="11" fill="#6A1B9A">Visibility &amp; Privacy Settings</text>
+
+  <!-- ===== FLOW ARROWS ===== -->
+  <!-- User → P1 -->
+  <line x1="140" y1="320" x2="218" y2="210" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="148" y="268" font-size="9" fill="#333">Camera</text>
+  <text x="148" y="280" font-size="9" fill="#333">frames</text>
+
+  <!-- P1 → P2 -->
+  <line x1="370" y1="192" x2="418" y2="192" stroke="#388E3C" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="378" y="185" font-size="9" fill="#333">Raw frames</text>
+
+  <!-- P2 → P3 -->
+  <line x1="570" y1="192" x2="618" y2="192" stroke="#388E3C" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="574" y="185" font-size="9" fill="#333">Face encoding</text>
+
+  <!-- P3 → D1 (query) -->
+  <line x1="695" y1="225" x2="695" y2="290" stroke="#E65100" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-dash)"/>
+  <text x="700" y="260" font-size="9" fill="#E65100">Query</text>
+
+  <!-- D1 → P3 (result) -->
+  <line x1="620" y1="330" x2="730" y2="260" stroke="#E65100" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-dash)"/>
+  <text x="638" y="298" font-size="9" fill="#E65100">Matched</text>
+  <text x="638" y="309" font-size="9" fill="#E65100">user ID</text>
+
+  <!-- P3 → P5 -->
+  <line x1="695" y1="225" x2="570" y2="432" stroke="#E65100" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="648" y="330" font-size="9" fill="#333">User ID</text>
+
+  <!-- P5 → D2 (read) -->
+  <line x1="495" y1="430" x2="495" y2="422" stroke="#7B1FA2" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-dash)"/>
+
+  <!-- D2 → P5 -->
+  <line x1="480" y1="390" x2="480" y2="497" stroke="#7B1FA2" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-dash)"/>
+  <text x="486" y="415" font-size="9" fill="#7B1FA2">Privacy</text>
+  <text x="486" y="426" font-size="9" fill="#7B1FA2">rules</text>
+
+  <!-- Firebase → P5 -->
+  <line x1="840" y1="330" x2="572" y2="462" stroke="#E65100" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="730" y="390" font-size="9" fill="#E65100">Profile data</text>
+
+  <!-- P5 → Firebase (write) -->
+  <line x1="570" y1="450" x2="840" y2="340" stroke="#E65100" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-dash)"/>
+  <text x="740" y="420" font-size="9" fill="#E65100">Update</text>
+  <text x="740" y="431" font-size="9" fill="#E65100">profile</text>
+
+  <!-- P5 → P6 -->
+  <line x1="570" y1="462" x2="618" y2="462" stroke="#2E75B6" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="576" y="455" font-size="9" fill="#333">Allowed</text>
+  <text x="576" y="466" font-size="9" fill="#333">profile data</text>
+
+  <!-- P6 → AR Display -->
+  <line x1="695" y1="495" x2="695" y2="590" stroke="#2E75B6" stroke-width="1.5"/>
+  <line x1="695" y1="590" x2="142" y2="597" stroke="#2E75B6" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="400" y="608" font-size="9" fill="#333">AR overlay (name, socials, buttons)</text>
+
+  <!-- User → P4 -->
+  <line x1="140" y1="340" x2="218" y2="462" stroke="#7B1FA2" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="130" y="410" font-size="9" fill="#6A1B9A">Login /</text>
+  <text x="130" y="422" font-size="9" fill="#6A1B9A">signup</text>
+
+  <!-- P4 → Firebase -->
+  <line x1="370" y1="462" x2="840" y2="328" stroke="#7B1FA2" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="580" y="370" font-size="9" fill="#6A1B9A">Store / update</text>
+  <text x="580" y="381" font-size="9" fill="#6A1B9A">credentials &amp; profile</text>
+
+  <!-- ===== LEGEND ===== -->
+  <rect x="30" y="130" width="170" height="100" rx="6" fill="white" stroke="#CCC" stroke-width="1"/>
+  <text x="115" y="150" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Legend</text>
+  <rect x="42" y="160" width="30" height="18" rx="3" fill="white" stroke="#2E75B6" stroke-width="2"/>
+  <text x="78" y="173" font-size="9" fill="#333">External Entity</text>
+  <ellipse cx="57" cy="194" rx="15" ry="10" fill="white" stroke="#388E3C" stroke-width="2"/>
+  <text x="78" y="198" font-size="9" fill="#333">Process</text>
+  <line x1="42" y1="215" x2="72" y2="215" stroke="#E65100" stroke-width="2"/>
+  <line x1="42" y1="222" x2="72" y2="222" stroke="#E65100" stroke-width="2"/>
+  <rect x="42" y="215" width="30" height="7" fill="#FFF3E0"/>
+  <text x="78" y="222" font-size="9" fill="#333">Data Store</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <marker id="arr-dash" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#999"/>
+    </marker>
+  </defs>
+</svg>
